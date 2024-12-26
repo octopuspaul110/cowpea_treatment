@@ -52,7 +52,7 @@ def preprocess_and_infer():
     user_df[numeric_cols] = scaler.fit_transform(user_df[numeric_cols])
 
     # --- Load Pre-trained Model ---
-    model_file = "D:\cowpea_project_treatment\cowpea_treatment_app\cowpea_treatment\models\soil_model"
+    model_file = "\cowpea_treatment\models\soil_model.joblib"
     model = joblib.load(model_file)
 
     # --- Perform Prediction ---

@@ -20,6 +20,16 @@ sand = st.sidebar.number_input("% Sand", min_value=0, max_value=100, step=1)
 silt = st.sidebar.number_input("% Silt", min_value=0, max_value=100, step=1)
 clay = st.sidebar.number_input("% Clay ", min_value=0, max_value=100, step=1)
 
+
+dir = path.Path(__file__)
+sys.path.append(dir.parent.parent)
+
+# load model
+path_to_model = './models/soil_model.joblib'
+
+with open(path_to_model, 'rb') as file:
+    model = joblib.load(file)
+
 # --- Process Data ---
 def preprocess_and_infer():
     """
@@ -52,8 +62,8 @@ def preprocess_and_infer():
     user_df[numeric_cols] = scaler.fit_transform(user_df[numeric_cols])
 
     # --- Load Pre-trained Model ---
-    model_file = "\cowpea_treatment\models\soil_model.joblib"
-    model = joblib.load(model_file)
+    #model_file = "\cowpea_treatment\models\soil_model.joblib"
+    #model = joblib.load(model_file)
 
     # --- Perform Prediction ---
     prediction = model.predict(user_df)[0]

@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import joblib
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
+import path
 
 # --- Title ---
 st.title("Classification Model for Treatments Prediction")

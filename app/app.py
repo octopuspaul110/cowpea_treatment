@@ -4,6 +4,7 @@ import numpy as np
 import joblib
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import path
+import sys
 
 # --- Title ---
 st.title("Classification Model for Treatments Prediction")

@@ -9,12 +9,12 @@ import sys
 # --- Title ---
 st.title("Classification Model for Treatments Prediction")
 image_path = "./app/treatmenimg.jpeg"  # Replace with the actual path to your image
-    try:
-        image = Image.open(image_path)
-        st.image(image, use_container_width=True)
-    except FileNotFoundError:
-        st.error("Image file not found. Please ensure the file path is correct.")
-        st.write("Enter the values to predict the disease status.")
+try:
+    image = Image.open(image_path)
+    st.image(image, use_container_width=True)
+except FileNotFoundError:
+    st.error("Image file not found. Please ensure the file path is correct.")
+    st.write("Enter the values to predict the disease status.")
 
 # --- Feature Inputs ---
 st.sidebar.header("Input Features")

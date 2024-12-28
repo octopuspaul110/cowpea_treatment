@@ -5,6 +5,7 @@ import joblib
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import path
 import sys
+from PIL import Image
 
 # --- Title ---
 st.title("Classification Model for Treatments Prediction")

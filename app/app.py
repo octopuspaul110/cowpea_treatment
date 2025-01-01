@@ -25,7 +25,7 @@ def initialize_db():
             Kilo_cmol_kg REAL,
             percentage_Sand INTEGER,
             percentage_Silt INTEGER,
-            percentage_Clay  INTEGER,
+            percentage_Clay INTEGER,
             Treatments STRING
         );
         """))
@@ -105,7 +105,7 @@ def preprocess_and_infer():
         'Kilo_cmol_kg': [k_cmolkg],
         'percentage_Sand': [sand],
         'percentage_Silt': [silt],
-        'percentage_Clay ': [clay]
+        'percentage_Clay': [clay]
     }
     user_df_db = pd.DataFrame(input_data_db)
 
@@ -137,12 +137,12 @@ def preprocess_and_infer():
         prediction_label = treatment_labels[prediction]
         st.success("Prediction saved to database!")
 
-    return prediction_label
+    return prediction_label,user_df_db
 
 # --- Prediction ---
 if st.button("Predict Treatment"):
     try:
-        prediction = preprocess_and_infer()
+        prediction,user_df_db = preprocess_and_infer()
         st.success(f"The predicted treatment is: {prediction}")
 
         user_df_db["Treatments"] = prediction

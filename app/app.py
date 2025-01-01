@@ -6,6 +6,42 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import path
 import sys
 from PIL import Image
+import sqlite3
+from sqlalchemy import create_engine,text
+
+# Initialize database connection
+DB_FILE = "app_data.db"
+engine = create_engine(f"sqlite:///{DB_FILE}")
+
+def initialize_db():
+    with engine.connect() as conn:
+        conn.execute(text("""
+        CREATE TABLE IF NOT EXISTS predictions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            pH REAL,
+            % OC REAL,
+            %TN REAL,
+            P (mg/kg) REAL,
+            K (cmol/kg) REAL,
+            % Sand INTEGER,
+            % Silt INTEGER,
+            % Clay  INTEGER,
+            Treatments STRING
+        );
+        """))
+# Save data to database
+def save_to_db(data):
+    with engine.connect() as conn:
+        data.to_sql("predictions", con=conn, if_exists="append", index=False)
+
+# Fetch all data from database
+def fetch_all_data():
+    with engine.connect() as conn:
+        query = "SELECT * FROM predictions"
+        return pd.read_sql(query, conn)
+
+# Initialize database
+initialize_db()
 
 # --- Title ---
 st.title("Classification Model for Treatments Prediction")
@@ -61,6 +97,8 @@ def preprocess_and_infer():
     }
     user_df = pd.DataFrame(input_data)
 
+    user_df_db = pd.DataFrame(input_data)
+
     # --- Feature Engineering ---
     user_df['Clay_Sand_Interaction'] = user_df['% Clay '] * user_df['% Sand']
     user_df['pH_K_Interaction'] = user_df['pH'] * user_df['K (cmol/kg)']
@@ -87,6 +125,7 @@ def preprocess_and_infer():
             'CMV+CABMV+NO PGPR', 'CMV+PGPR'
         ]
         prediction_label = treatment_labels[prediction]
+        st.success("Prediction saved to database!")
 
     return prediction_label
 
@@ -95,5 +134,18 @@ if st.button("Predict Treatment"):
     try:
         prediction = preprocess_and_infer()
         st.success(f"The predicted treatment is: {prediction}")
+
+        user_df_db["Treatments"] = prediction_label
+        print(user_df_db.head())
+        save_to_db(user_df_db)
+        
     except Exception as e:
         st.error(f"An error occurred: {e}")
+        
+    # Display stored predictions
+    st.header("Stored Predictions")
+    stored_data = fetch_all_data()
+    if not stored_data.empty:
+        st.dataframe(stored_data)
+    else:
+        st.info("No data stored yet.")  

@@ -152,10 +152,10 @@ if st.button("Predict Treatment"):
     except Exception as e:
         st.error(f"An error occurred: {e}")
         
-    # Display stored predictions
-    st.header("Stored Predictions")
-    stored_data = fetch_all_data()
-    if not stored_data.empty:
-        st.dataframe(stored_data)
-    else:
-        st.info("No data stored yet.")  
+# Display stored predictions
+st.header("Stored Predictions")
+stored_data = fetch_all_data()
+if not stored_data.empty:
+    st.dataframe(stored_data)
+else:
+    st.info("No data stored yet.")  

@@ -19,13 +19,13 @@ def initialize_db():
         CREATE TABLE IF NOT EXISTS predictions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             pH REAL,
-            % OC REAL,
-            %TN REAL,
-            P (mg/kg) REAL,
-            K (cmol/kg) REAL,
-            % Sand INTEGER,
-            % Silt INTEGER,
-            % Clay  INTEGER,
+            percentage_OC REAL,
+            percentage_TN REAL,
+            P_mg_kg REAL,
+            Kilo_cmol_kg REAL,
+            percentage_Sand INTEGER,
+            percentage_Silt INTEGER,
+            percentage_Clay  INTEGER,
             Treatments STRING
         );
         """))
@@ -97,7 +97,17 @@ def preprocess_and_infer():
     }
     user_df = pd.DataFrame(input_data)
 
-    user_df_db = pd.DataFrame(input_data)
+    input_data_db = {
+        'pH': [pH],
+        'percentage_OC': [oc],
+        'percentage_TN': [tn],
+        'P_mg_kg': [p_mgkg],
+        'Kilo_cmol_kg': [k_cmolkg],
+        'percentage_Sand': [sand],
+        'percentage_Silt': [silt],
+        'percentage_Clay ': [clay]
+    }
+    user_df_db = pd.DataFrame(input_data_db)
 
     # --- Feature Engineering ---
     user_df['Clay_Sand_Interaction'] = user_df['% Clay '] * user_df['% Sand']
@@ -135,7 +145,7 @@ if st.button("Predict Treatment"):
         prediction = preprocess_and_infer()
         st.success(f"The predicted treatment is: {prediction}")
 
-        user_df_db["Treatments"] = prediction_label
+        user_df_db["Treatments"] = prediction
         print(user_df_db.head())
         save_to_db(user_df_db)
         

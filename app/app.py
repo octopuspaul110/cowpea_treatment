@@ -115,9 +115,9 @@ def preprocess_and_infer():
     user_df['OC_TN_Interaction'] = user_df['% OC'] * user_df['%TN']
 
     # --- Scaling Numeric Features ---
-    scaler = StandardScaler()
-    numeric_cols = user_df.select_dtypes(include=['float64', 'int64']).columns
-    user_df[numeric_cols] = scaler.fit_transform(user_df[numeric_cols])
+    # scaler = StandardScaler()
+    # numeric_cols = user_df.select_dtypes(include=['float64', 'int64']).columns
+    # user_df[numeric_cols] = scaler.fit_transform(user_df[numeric_cols])
 
     # --- Load Pre-trained Model ---
     #model_file = "\cowpea_treatment\models\soil_model.joblib"

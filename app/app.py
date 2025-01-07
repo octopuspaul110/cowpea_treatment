@@ -13,6 +13,12 @@ from sqlalchemy import create_engine,text
 DB_FILE = "app_data.db"
 engine = create_engine(f"sqlite:///{DB_FILE}")
 
+
+# Custom text styling using Markdown
+def colored_text(text, color):
+    st.sidebar.write(f'<span style="color:{color}; font-size:18px;">{text}</span>', unsafe_allow_html=True)
+
+
 def initialize_db():
     with engine.connect() as conn:
         conn.execute(text("""
@@ -70,6 +76,10 @@ st.sidebar.write("Below represents the Viruses that aid the growth of plants.")
 st.sidebar.write("Cowpea Mosaic Virus (CMV)")
 st.sidebar.write("Cowpea Aphis Borne Mosaic Virus (CABMV)")
 st.sidebar.write("Plant Growth Promoting Rhizobium (PGPR)")
+
+colored_text("Cowpea Mosaic Virus (CMV)", "blue")
+colored_text("Cowpea Aphis Borne Mosaic Virus (CABMV)", "green")
+colored_text("Plant Growth Promoting Rhizobium (PGPR)", "red")
 
 
 dir = path.Path(__file__)

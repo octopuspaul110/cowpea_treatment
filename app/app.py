@@ -73,12 +73,12 @@ silt = st.sidebar.number_input("% Silt", min_value=0, max_value=100, step=1)
 clay = st.sidebar.number_input("% Clay ", min_value=0, max_value=100, step=1)
 
 st.sidebar.write("Below represents the Viruses that aid the growth of plants.")
-st.sidebar.write("Cowpea Mosaic Virus (CMV)")
-st.sidebar.write("Cowpea Aphis Borne Mosaic Virus (CABMV)")
-st.sidebar.write("Plant Growth Promoting Rhizobium (PGPR)")
+# st.sidebar.write("Cowpea Mosaic Virus (CMV)")
+# st.sidebar.write("Cowpea Aphis Borne Mosaic Virus (CABMV)")
+# st.sidebar.write("Plant Growth Promoting Rhizobium (PGPR)")
 
-colored_text("Cowpea Mosaic Virus (CMV)", "blue")
-colored_text("Cowpea Aphis Borne Mosaic Virus (CABMV)", "green")
+colored_text("Cowpea Mosaic Virus (CMV)", "red")
+colored_text("Cowpea Aphis Borne Mosaic Virus (CABMV)", "red")
 colored_text("Plant Growth Promoting Rhizobium (PGPR)", "red")
 
 
@@ -159,6 +159,22 @@ if st.button("Predict Treatment"):
     try:
         prediction,user_df_db = preprocess_and_infer()
         st.success(f"The predicted treatment is: {prediction}")
+        if prediction == 'BUFFER+NO PGPR':
+            st.write("Buffer + No PGPR i.e. Buffer only.")
+            st.write("Note: Buffer means No treatment applied.  Buffer is used for control experiment")
+        elif prediction == 'BUFFER+PGPR':
+            st.write("Buffer + No PGPR")
+            st.write("Note: Buffer means No treatment applied.  Buffer is used for control experiment")
+        elif prediction == 'CABMV+NO PGPR':
+            st.write("Combination of CABMV + No PGPR i.e. CABMV Only")
+        elif prediction == 'CABMV+PGPR':
+            st.write("Combination of CABMV + PGPR")
+        elif prediction == 'CMV+CABMV+NO PGPR':
+            st.write("Combination of CMV + CABMV + No PGPR")
+        elif prediction == 'CMV+PGPR':
+            st.write("Combination of CABMV + PGPR")
+        else:
+            st.write("no treatment predicted")
 
         user_df_db["Treatments"] = prediction
         print(user_df_db.head())

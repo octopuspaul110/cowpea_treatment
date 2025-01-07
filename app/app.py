@@ -66,6 +66,8 @@ sand = st.sidebar.number_input("% Sand", min_value=0, max_value=100, step=1)
 silt = st.sidebar.number_input("% Silt", min_value=0, max_value=100, step=1)
 clay = st.sidebar.number_input("% Clay ", min_value=0, max_value=100, step=1)
 
+st.write("Below are the Predicted values for this app, they represent the Viruses that aid the growth of plants.")
+
 
 dir = path.Path(__file__)
 sys.path.append(dir.parent.parent)

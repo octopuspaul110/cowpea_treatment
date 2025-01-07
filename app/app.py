@@ -161,10 +161,10 @@ if st.button("Predict Treatment"):
         st.success(f"The predicted treatment is: {prediction}")
         if prediction == 'BUFFER+NO PGPR':
             st.write("Buffer + No PGPR i.e. Buffer only.")
-            st.write("Note: Buffer means No treatment applied.  Buffer is used for control experiment")
+            st.write("Note: Buffer means No treatment applied. Buffer is used for control experiment")
         elif prediction == 'BUFFER+PGPR':
-            st.write("Buffer + No PGPR")
-            st.write("Note: Buffer means No treatment applied.  Buffer is used for control experiment")
+            st.write("Buffer + PGPR")
+            st.write("Note: Buffer means No treatment applied. Buffer is used for control experiment")
         elif prediction == 'CABMV+NO PGPR':
             st.write("Combination of CABMV + No PGPR i.e. CABMV Only")
         elif prediction == 'CABMV+PGPR':

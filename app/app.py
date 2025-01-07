@@ -66,7 +66,10 @@ sand = st.sidebar.number_input("% Sand", min_value=0, max_value=100, step=1)
 silt = st.sidebar.number_input("% Silt", min_value=0, max_value=100, step=1)
 clay = st.sidebar.number_input("% Clay ", min_value=0, max_value=100, step=1)
 
-st.sidebar.write("Below are the Predicted values for this app, they represent the Viruses that aid the growth of plants.")
+st.sidebar.write("Below represents the Viruses that aid the growth of plants.")
+st.sidebar.write("Cowpea Mosaic Virus (CMV)")
+st.sidebar.write("Cowpea Aphis Borne Mosaic Virus (CABMV)")
+st.sidebar.write("Plant Growth Promoting Rhizobium (PGPR)")
 
 
 dir = path.Path(__file__)
